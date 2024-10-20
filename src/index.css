@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html,
+	body {
+		min-height: 100%;
+		@apply min-h-dvh;
+		font-family: 'Manrope', sans-serif;
+	}
+}
