@@ -40,6 +40,12 @@ export default {
 					'2xl': '1536px',
 				},
 			},
+			transitionDuration: {
+				DEFAULT: '333ms',
+			},
+			transitionTimingFunction: {
+				DEFAULT: 'cubic-bezier(0.4, 0, 0.2, 1)',
+			},
 		},
 	},
 	plugins: [],

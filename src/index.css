@@ -8,5 +8,22 @@
 		min-height: 100%;
 		@apply min-h-dvh;
 		font-family: 'Manrope', sans-serif;
+		scrollbar-gutter: stable;
 	}
+}
+
+/* Animations */
+@keyframes fade {
+	from {
+		opacity: 0;
+		transform: scaleY(0.85);
+	}
+	to {
+		opacity: 1;
+		transform: scaleY(1);
+	}
+}
+.fade {
+	transform-origin: top;
+	animation: fade 0.333s ease-in-out;
 }
