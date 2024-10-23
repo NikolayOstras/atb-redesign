@@ -2,7 +2,7 @@ import { TCategory } from '../services/fetchCategories'
 
 export const translateCategoriesToUA = (data: TCategory[]): TCategory[] => {
 	const translations: Record<string, string> = {
-		'Alco and Tobacco': 'Алкоголь та Тютюн',
+		'Alco and Tobacco': 'Алкоголь',
 		beers: 'пиво',
 		champage: 'шампанське',
 		cognac: 'коньяк',
@@ -35,8 +35,8 @@ export const translateCategoriesToUA = (data: TCategory[]): TCategory[] => {
 		'Frozen Products': 'Заморожені продукти',
 		dough: 'тісто',
 		dumplings: 'пельмені',
-		frozen_foods: 'заморожені продукти',
-		frozen_meals: 'заморожені страви',
+		frozen_foods: 'Овочі',
+		frozen_meals: 'Напівфабрикати',
 		icecream: 'морозиво',
 		'Fruits and vegetables': 'Фрукти та овочі',
 		fruits: 'фрукти',
@@ -54,7 +54,7 @@ export const translateCategoriesToUA = (data: TCategory[]): TCategory[] => {
 		delicacy: 'делікатеси',
 		kovbasa: 'ковбаса',
 		meat: "м'ясо",
-		sausages: 'ковбаси',
+		sausages: 'сосиски',
 	}
 
 	return data.map(category => ({

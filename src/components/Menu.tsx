@@ -1,30 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ChevronDown } from '../icons/ChevronDown'
-import { TCategory, fetchCategories } from '../services/fetchCategories'
-import { translateCategoriesToUA } from '../utils/translateCategoriesToUA'
-import { Loader } from './Loader'
+import { TCategory } from '../services/fetchCategories'
 
-export function Menu() {
-	const [loading, setLoading] = useState(true)
-	const [categories, setCategories] = useState<TCategory[]>([])
+interface MenuProps {
+	categories: TCategory[] | null
+}
+
+export function Menu({ categories }: MenuProps) {
 	const [openCategories, setOpenCategories] = useState<string[]>([])
-
-	useEffect(() => {
-		const loadCategories = async () => {
-			try {
-				const data = await fetchCategories()
-
-				// console.log(data)
-				setCategories(translateCategoriesToUA(data))
-			} catch (error) {
-				console.error('Error fetching categories:', error)
-			} finally {
-				setLoading(false)
-			}
-		}
-
-		loadCategories()
-	}, [])
 
 	const toggleCategory = (categoryName: string) => {
 		setOpenCategories(prev => {
@@ -42,14 +25,14 @@ export function Menu() {
 	}
 
 	return (
-		<header>
-			{loading ? (
-				<Loader />
-			) : (
-				<nav>
-					<ul className='text-2xl font-semibold flex flex-col gap-4'>
-						{categories.map(category => (
-							<li key={category.name}>
+		<header className='fade'>
+			<nav>
+				<ul className='text-2xl font-semibold flex flex-col gap-4 xl:flex-row xl:flex-wrap xl:text-base'>
+					{categories === null ? (
+						<li>Loading...</li>
+					) : (
+						categories.map(category => (
+							<li key={category.name} className=' xl:relative'>
 								<button
 									className='w-full px-2 py-3 flex gap-2 items-center hover:text-cAccent transition-colors'
 									onClick={() => toggleCategory(category.name)}
@@ -62,22 +45,27 @@ export function Menu() {
 									/>
 								</button>
 								{openCategories.includes(category.name) && (
-									<ul className='font-medium text-xl flex flex-col gap-3 fade'>
+									<ul className='font-medium text-xl flex flex-col flex-wrap gap-3 fade xl:absolute top-11 xl:bg-cBg/75 backdrop-blur xl:z-10 xl:text-sm xl:shadow-sm xl:w-full  xl:min-w-52'>
+										<li className='px-4 py-3 hover:text-cActive transition-colors xl:px-2'>
+											<button>Всі товари</button>
+										</li>
 										{category.subcategories.map(item => (
 											<li
 												key={item}
-												className='px-4 py-3 hover:text-cActive transition-colors '
+												className='px-4 py-3 hover:text-cActive transition-colors xl:px-2'
 											>
-												<button className='capitalize'>{item}</button>
+												<button className='capitalize text-nowrap'>
+													{item}
+												</button>
 											</li>
 										))}
 									</ul>
 								)}
 							</li>
-						))}
-					</ul>
-				</nav>
-			)}
+						))
+					)}
+				</ul>
+			</nav>
 		</header>
 	)
 }
