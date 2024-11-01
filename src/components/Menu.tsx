@@ -8,7 +8,6 @@ interface MenuProps {
 }
 
 export function Menu({ categories }: MenuProps) {
-	console.log(categories)
 	const [openCategories, setOpenCategories] = useState<string[]>([])
 
 	const toggleCategory = (categoryName: string) => {
@@ -17,6 +16,9 @@ export function Menu({ categories }: MenuProps) {
 				? prev.filter(name => name !== categoryName)
 				: [categoryName]
 		)
+	}
+	const closeMenu = () => {
+		setOpenCategories([])
 	}
 
 	return (
@@ -43,11 +45,7 @@ export function Menu({ categories }: MenuProps) {
 								</button>
 								{openCategories.includes(category.title) &&
 									category.subcategories?.length > 0 && (
-										<ul
-											className='font-medium text-xl flex flex-col gap-3 fade xl:absolute top-12 xl:bg-cBg/75 backdrop-blur xl:z-10 xl:text-sm xl:shadow-sm xl:w-full xl:min-w-52 xl:max-h-80 xl:overflow-y-auto [&::-webkit-scrollbar]:w-2
-										[&::-webkit-scrollbar-track]:bg-cBg-50
-										[&::-webkit-scrollbar-thumb]:bg-cAccent [&::-webkit-scrollbar-thumb]:rounded-lg'
-										>
+										<ul className='subcategories-list'>
 											<li
 												key={`${category.id}-all`}
 												className='px-4 py-3 hover:text-cActive transition-colors xl:px-2'
@@ -55,6 +53,7 @@ export function Menu({ categories }: MenuProps) {
 												<Link
 													to={`/category/${category.id}`}
 													className='capitalize xl:text-base'
+													onClick={closeMenu}
 												>
 													Всі товари
 													<span className='ml-2 text-cInfo'>
@@ -75,6 +74,7 @@ export function Menu({ categories }: MenuProps) {
 													<Link
 														to={`/category/${category.id}/${item.id}`}
 														className='capitalize text-nowrap'
+														onClick={closeMenu}
 													>
 														{item.title}
 														<span className='ml-2 text-cInfo'>

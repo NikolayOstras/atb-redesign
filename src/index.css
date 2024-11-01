@@ -3,12 +3,33 @@
 @tailwind utilities;
 
 @layer base {
-	html,
+	html {
+		min-height: 100%;
+	}
+
 	body {
 		min-height: 100%;
-		@apply min-h-dvh;
+		@apply min-h-dvh bg-cBg transition-colors text-cMain;
 		font-family: 'Manrope', sans-serif;
 		scrollbar-gutter: stable;
+	}
+	body.dark {
+		@apply bg-cMain text-cBg-50;
+	}
+}
+
+@layer components {
+	.subcategories-list {
+		@apply font-medium text-xl flex flex-col gap-3 fade xl:absolute top-12 xl:bg-cBg/75 backdrop-blur xl:z-10 xl:text-sm xl:shadow-sm xl:w-full xl:min-w-52 xl:max-h-80 xl:overflow-y-auto [&::-webkit-scrollbar]:w-2
+		[&::-webkit-scrollbar-track]:bg-cBg-50
+		[&::-webkit-scrollbar-thumb]:bg-cAccent [&::-webkit-scrollbar-thumb]:rounded-lg
+		dark:bg-cMain/75;
+		scrollbar-color: #00ac6a #f6f6f6;
+		scrollbar-width: thin;
+	}
+	body.dark .subcategories-list {
+		scrollbar-color: #00ac6a #313131;
+		@apply [&::-webkit-scrollbar-track]:bg-cMain-50;
 	}
 }
 
