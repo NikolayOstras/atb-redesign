@@ -1,3 +1,5 @@
+import { ProductsContainer } from '../components/ProductsContainer'
+
 export function Category() {
-	return <div>CategoryPage</div>
+	return <ProductsContainer />
 }
