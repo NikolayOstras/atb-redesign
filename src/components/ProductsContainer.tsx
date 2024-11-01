@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 import { DEFAULT_CATEGORY, DEFAULT_SUB_CATEGORY } from '../lib/const'
 import {
@@ -9,6 +10,11 @@ import { Card } from './Card'
 import { Loader } from './Loader'
 
 export function ProductsContainer() {
+	const {
+		categoryId = DEFAULT_CATEGORY,
+		subCategoryId = DEFAULT_SUB_CATEGORY,
+	} = useParams()
+	console.log(categoryId, subCategoryId)
 	const [products, setProducts] = useState<TProduct[]>([])
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)
@@ -18,8 +24,8 @@ export function ProductsContainer() {
 			setLoading(true) // ensure loading is true when starting fetch
 			try {
 				const data = await fetchProductsByCategoryAndSubcategory(
-					DEFAULT_CATEGORY,
-					DEFAULT_SUB_CATEGORY
+					categoryId,
+					subCategoryId
 				)
 				setProducts(data)
 			} catch (error) {
@@ -31,7 +37,7 @@ export function ProductsContainer() {
 		}
 
 		loadProducts()
-	}, [])
+	}, [categoryId, subCategoryId])
 
 	if (loading) {
 		return (

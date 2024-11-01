@@ -1,6 +1,5 @@
 import { ArrowRight } from '../icons/ArrowRight'
 import { TProduct } from '../services/fetchProducts'
-import { removeDoubleSlash } from '../utils/utils'
 
 export function Card({ title, img, price, link }: TProduct) {
 	return (
@@ -16,7 +15,7 @@ export function Card({ title, img, price, link }: TProduct) {
 			<div className='flex justify-between mt-auto'>
 				<p>{price}</p>
 				<a
-					href={removeDoubleSlash(link)}
+					href={link}
 					className='text-cInfo p-2 hover:text-cInfo-100 transition-colors'
 					target='_blank'
 					rel='noreferrer'

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ChevronDown } from '../icons/ChevronDown'
 import { TCategory } from '../services/fetchCategories'
 
@@ -7,21 +8,15 @@ interface MenuProps {
 }
 
 export function Menu({ categories }: MenuProps) {
+	console.log(categories)
 	const [openCategories, setOpenCategories] = useState<string[]>([])
 
 	const toggleCategory = (categoryName: string) => {
-		setOpenCategories(prev => {
-			// If we're opening a new category and it's not already open
-			if (!prev.includes(categoryName)) {
-				// Close all other categories
-				return [categoryName]
-			} else {
-				// Otherwise, just toggle as usual
-				return prev.includes(categoryName)
-					? prev.filter(name => name !== categoryName)
-					: [...prev, categoryName]
-			}
-		})
+		setOpenCategories(prev =>
+			prev.includes(categoryName)
+				? prev.filter(name => name !== categoryName)
+				: [categoryName]
+		)
 	}
 
 	return (
@@ -32,35 +27,64 @@ export function Menu({ categories }: MenuProps) {
 						<li>Loading...</li>
 					) : (
 						categories.map(category => (
-							<li key={category.name} className=' xl:relative'>
+							<li key={category.id} className='xl:relative'>
 								<button
 									className='w-full px-2 py-3 flex gap-2 items-center hover:text-cAccent transition-colors'
-									onClick={() => toggleCategory(category.name)}
+									onClick={() => toggleCategory(category.title)}
 								>
-									{category.name}
+									{category.title}
 									<ChevronDown
 										className={`h-5 w-5 transition-transform ${
-											openCategories.includes(category.name) ? 'rotate-180' : ''
+											openCategories.includes(category.title)
+												? 'rotate-180'
+												: ''
 										}`}
 									/>
 								</button>
-								{openCategories.includes(category.name) && (
-									<ul className='font-medium text-xl flex flex-col flex-wrap gap-3 fade xl:absolute top-11 xl:bg-cBg/75 backdrop-blur xl:z-10 xl:text-sm xl:shadow-sm xl:w-full  xl:min-w-52'>
-										<li className='px-4 py-3 hover:text-cActive transition-colors xl:px-2'>
-											<button>Всі товари</button>
-										</li>
-										{category.subcategories.map(item => (
+								{openCategories.includes(category.title) &&
+									category.subcategories?.length > 0 && (
+										<ul
+											className='font-medium text-xl flex flex-col gap-3 fade xl:absolute top-12 xl:bg-cBg/75 backdrop-blur xl:z-10 xl:text-sm xl:shadow-sm xl:w-full xl:min-w-52 xl:max-h-80 xl:overflow-y-auto [&::-webkit-scrollbar]:w-2
+										[&::-webkit-scrollbar-track]:bg-cBg-50
+										[&::-webkit-scrollbar-thumb]:bg-cAccent [&::-webkit-scrollbar-thumb]:rounded-lg'
+										>
 											<li
-												key={item}
+												key={`${category.id}-all`}
 												className='px-4 py-3 hover:text-cActive transition-colors xl:px-2'
 											>
-												<button className='capitalize text-nowrap'>
-													{item}
-												</button>
+												<Link
+													to={`/category/${category.id}`}
+													className='capitalize xl:text-base'
+												>
+													Всі товари
+													<span className='ml-2 text-cInfo'>
+														(
+														{category.subcategories.reduce(
+															(sum, item) => sum + item.amount,
+															0
+														)}
+														)
+													</span>
+												</Link>
 											</li>
-										))}
-									</ul>
-								)}
+											{category.subcategories.map(item => (
+												<li
+													key={item.id} // Ensure unique key here
+													className='px-4 py-3 hover:text-cActive transition-colors xl:px-2'
+												>
+													<Link
+														to={`/category/${category.id}/${item.id}`}
+														className='capitalize text-nowrap'
+													>
+														{item.title}
+														<span className='ml-2 text-cInfo'>
+															{item.amount}
+														</span>
+													</Link>
+												</li>
+											))}
+										</ul>
+									)}
 							</li>
 						))
 					)}

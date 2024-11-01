@@ -1,44 +1,49 @@
-import { collection, getDocs } from 'firebase/firestore'
+import { DocumentReference, collection, getDocs } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 
-export type TCategory = {
-	name: string
-	subcategories: string[]
+type TSubcategory = {
+	id: string
+	title: string
+	amount: number
+	category: DocumentReference
 }
 
-/**
- * Fetches all categories and their subcategories from Firestore.
- *
- * @returns {Promise<TCategory[]>} A promise that resolves to an array of Category objects.
- */
+export type TCategory = {
+	id: string
+	title: string
+	subcategories: TSubcategory[]
+}
+
 export const fetchCategories = async (): Promise<TCategory[]> => {
 	try {
 		const categoriesCollection = collection(db, 'categories')
 		const categoriesSnapshot = await getDocs(categoriesCollection)
+		const categoriesData = categoriesSnapshot.docs.map(doc => ({
+			id: doc.id,
+			title: doc.data().title || '',
+		}))
 
-		const categories: TCategory[] = [] // Initialize as an empty array
+		const subcategoriesCollection = collection(db, 'subcategories')
+		const subcategoriesSnapshot = await getDocs(subcategoriesCollection)
 
-		for (const categoryDoc of categoriesSnapshot.docs) {
-			const categoryName = categoryDoc.data().name
-
-			// Fetch subcategories for the current category
-			const subcategoriesCollection = collection(
-				categoryDoc.ref,
-				'subcategories'
-			)
-			const subcategoriesSnapshot = await getDocs(subcategoriesCollection)
-			const subcategoryNames = subcategoriesSnapshot.docs.map(
-				doc => doc.data().name
-			)
-
-			// Push a new Category object to the array
-			categories.push({
-				name: categoryName,
-				subcategories: subcategoryNames,
+		const subcategoriesData: TSubcategory[] = subcategoriesSnapshot.docs.map(
+			doc => ({
+				id: doc.id,
+				title: doc.data().title || '',
+				amount: doc.data().amount || 0,
+				category: doc.data().category as DocumentReference,
 			})
-		}
+		)
 
-		return categories
+		const result: TCategory[] = categoriesData.map(category => ({
+			id: category.id,
+			title: category.title,
+			subcategories: subcategoriesData.filter(
+				subcategory => subcategory.category.id === category.id
+			),
+		}))
+
+		return result
 	} catch (error) {
 		console.error('Error fetching categories:', error)
 		throw error

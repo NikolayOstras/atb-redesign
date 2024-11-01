@@ -1,48 +1,64 @@
-import { DocumentData, collection, getDocs } from 'firebase/firestore'
-import { db } from '../lib/firebase' // Assuming you have a firebaseConfig.ts file
+import {
+	DocumentReference,
+	collection,
+	doc,
+	getDocs,
+	query,
+	where,
+} from 'firebase/firestore'
+import { db } from '../lib/firebase'
 
 export type TProduct = {
 	img: string
 	link: string
-	price: string
-	prices: { number: number; timestamp: string }[]
+	price: number
+	id: string
+	prices: { price: number; timestamp: string }[]
 	title: string
+	category: DocumentReference
+	subcategory: DocumentReference
 }
 
 /**
  * Fetches products from Firestore based on the provided category and subcategory.
  *
- * @param {string} category - The category of the products.
- * @param {string} subcategory - The subcategory of the products.
+ * @param {string} categoryId - The ID of the category.
+ * @param {string} subcategoryId - The ID of the subcategory.
  * @returns {Promise<TProduct[]>} A promise that resolves to an array of Product objects.
  */
 export async function fetchProductsByCategoryAndSubcategory(
-	category: string,
-	subcategory: string
+	categoryId: string,
+	subcategoryId: string
 ): Promise<TProduct[]> {
 	try {
-		const productsCollection = collection(
-			db,
-			'categories',
-			category,
-			'subcategories',
-			subcategory,
-			'products'
+		const productsCollection = collection(db, 'products')
+
+		// Get document references for category and subcategory
+		const categoryRef = doc(collection(db, 'categories'), categoryId)
+		const subcategoryRef = doc(collection(db, 'subcategories'), subcategoryId)
+
+		const productsQuery = query(
+			productsCollection,
+			where('category', '==', categoryRef),
+			where('subcategory', '==', subcategoryRef)
 		)
-		const snapshot = await getDocs(productsCollection)
-		const products = snapshot.docs.map(doc => {
-			const data = doc.data() as DocumentData
-			return {
-				img: data.img,
-				link: data.link,
-				price: data.price,
-				prices: data.prices,
-				title: data.title,
-			}
-		})
+
+		const querySnapshot = await getDocs(productsQuery)
+		const products = querySnapshot.docs.map(doc => ({
+			id: doc.id,
+			img: doc.data().img,
+			link: doc.data().link,
+			price: doc.data().price,
+			prices: doc.data().prices || [],
+			title: doc.data().title,
+			category: doc.data().category,
+			subcategory: doc.data().subcategory,
+		}))
+
+		console.log(products)
 		return products
 	} catch (error) {
-		console.error('Error getting products by category:', error)
+		console.error('Error getting products by category and subcategory:', error)
 		return []
 	}
 }

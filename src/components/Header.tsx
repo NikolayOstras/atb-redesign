@@ -1,32 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+
 import { MenuIcon } from '../icons/MenuIcon'
 import { X } from '../icons/X'
-import { TCategory, fetchCategories } from '../services/fetchCategories'
+import useCategoriesStore from '../utils/store'
 import { translateCategoriesToUA } from '../utils/translateCategoriesToUA'
 import { Loader } from './Loader'
 import { Menu } from './Menu'
 
 export function Header() {
+	const { categories, loading } = useCategoriesStore()
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
-	const [loading, setLoading] = useState(true)
-	const [categories, setCategories] = useState<TCategory[]>([])
-
-	useEffect(() => {
-		const loadCategories = async () => {
-			try {
-				const data = await fetchCategories()
-
-				// console.log(data)
-				setCategories(translateCategoriesToUA(data))
-			} catch (error) {
-				console.error('Error fetching categories:', error)
-			} finally {
-				setLoading(false)
-			}
-		}
-
-		loadCategories()
-	}, [])
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen)
@@ -35,7 +18,12 @@ export function Header() {
 	return (
 		<>
 			<div className='relative flex justify-between items-center py-4'>
-				<h1 className='font-semibold text-2xl'>ATB redesign</h1>
+				<h1 className=' text-2xl flex flex-col items-center'>
+					ATB{' '}
+					<span className='block font-thin tracking-wide text-base'>
+						redesign
+					</span>
+				</h1>
 				{loading ? (
 					<Loader />
 				) : (
@@ -43,10 +31,8 @@ export function Header() {
 						{isMenuOpen ? <X /> : <MenuIcon />}
 					</button>
 				)}
-
-				{/* Conditionally render the Menu component */}
 			</div>
-			{isMenuOpen && <Menu categories={categories} />}
+			{isMenuOpen && <Menu categories={translateCategoriesToUA(categories)} />}
 		</>
 	)
 }

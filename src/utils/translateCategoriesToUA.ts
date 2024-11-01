@@ -58,7 +58,11 @@ export const translateCategoriesToUA = (data: TCategory[]): TCategory[] => {
 	}
 
 	return data.map(category => ({
-		name: translations[category.name] || category.name,
-		subcategories: category.subcategories.map(sub => translations[sub] || sub),
+		...category,
+		title: translations[category.title] || category.title,
+		subcategories: category.subcategories.map(sub => ({
+			...sub,
+			title: translations[sub.title] || sub.title, // Translate subcategory title
+		})),
 	}))
 }
