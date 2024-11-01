@@ -5,9 +5,10 @@ import { TCategory } from '../services/fetchCategories'
 
 interface MenuProps {
 	categories: TCategory[] | null
+	isScrolled: boolean
 }
 
-export function Menu({ categories }: MenuProps) {
+export function Menu({ categories, isScrolled }: MenuProps) {
 	const [openCategories, setOpenCategories] = useState<string[]>([])
 
 	const toggleCategory = (categoryName: string) => {
@@ -22,9 +23,9 @@ export function Menu({ categories }: MenuProps) {
 	}
 
 	return (
-		<header className='fade'>
+		<div className='fade '>
 			<nav>
-				<ul className='text-2xl font-semibold flex flex-col gap-4 xl:flex-row xl:flex-wrap xl:text-base'>
+				<ul className='text-xl font-semibold flex flex-col items-center gap-4 xl:flex-row xl:flex-wrap xl:text-base'>
 					{categories === null ? (
 						<li>Loading...</li>
 					) : (
@@ -90,6 +91,6 @@ export function Menu({ categories }: MenuProps) {
 					)}
 				</ul>
 			</nav>
-		</header>
+		</div>
 	)
 }

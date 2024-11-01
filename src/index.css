@@ -20,10 +20,10 @@
 
 @layer components {
 	.subcategories-list {
-		@apply font-medium text-xl flex flex-col gap-3 fade xl:absolute top-12 xl:bg-cBg/75 backdrop-blur xl:z-10 xl:text-sm xl:shadow-sm xl:w-full xl:min-w-52 xl:max-h-80 xl:overflow-y-auto [&::-webkit-scrollbar]:w-2
+		@apply font-medium text-xl flex flex-col gap-3 fade xl:absolute top-12 xl:bg-cBg xl:z-10 xl:text-sm xl:shadow-sm xl:w-full xl:min-w-52 xl:max-h-80 xl:overflow-y-auto [&::-webkit-scrollbar]:w-2
 		[&::-webkit-scrollbar-track]:bg-cBg-50
 		[&::-webkit-scrollbar-thumb]:bg-cAccent [&::-webkit-scrollbar-thumb]:rounded-lg
-		dark:bg-cMain/75;
+		dark:bg-cMain;
 		scrollbar-color: #00ac6a #f6f6f6;
 		scrollbar-width: thin;
 	}
