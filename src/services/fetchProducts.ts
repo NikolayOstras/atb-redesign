@@ -1,6 +1,7 @@
 import {
 	DocumentReference,
 	QueryDocumentSnapshot,
+	Timestamp,
 	collection,
 	doc,
 	getDocs,
@@ -18,7 +19,7 @@ export type TProduct = {
 	link: string
 	price: number
 	id: string
-	prices: { price: number; timestamp: string }[]
+	priceHistory: { price: number; timestamp: Timestamp }[]
 	title: string
 	category: DocumentReference
 	subcategory: DocumentReference
@@ -61,7 +62,7 @@ export async function fetchProductsByCategoryAndSubcategory(
 			img: doc.data().img,
 			link: doc.data().link,
 			price: doc.data().price,
-			prices: doc.data().prices || [],
+			priceHistory: doc.data().priceHistory || [],
 			title: doc.data().title,
 			category: doc.data().category,
 			subcategory: doc.data().subcategory,
@@ -108,7 +109,7 @@ export async function fetchProductsByCategory(
 			img: doc.data().img,
 			link: doc.data().link,
 			price: doc.data().price,
-			prices: doc.data().prices || [],
+			priceHistory: doc.data().priceHistory || [],
 			title: doc.data().title,
 			category: doc.data().category,
 			subcategory: doc.data().subcategory,

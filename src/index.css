@@ -31,6 +31,21 @@
 		scrollbar-color: #00ac6a #313131;
 		@apply [&::-webkit-scrollbar-track]:bg-cMain-50;
 	}
+
+	.triangle {
+		width: 0px;
+		height: 0px;
+		border-style: solid;
+		border-width: 0 5px 10px 5px;
+		transform: rotate(0deg);
+	}
+	.triangle._up {
+		border-color: transparent transparent #00ac6a transparent;
+	}
+	.triangle._down {
+		border-color: transparent transparent #ff3c3c transparent;
+		transform: rotate(180deg);
+	}
 }
 
 /* Animations */

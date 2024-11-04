@@ -40,6 +40,9 @@ export function Header() {
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen)
 	}
+	const closeMenu = () => {
+		setIsMenuOpen(false)
+	}
 
 	return (
 		<>
@@ -77,7 +80,7 @@ export function Header() {
 				{isMenuOpen && (
 					<Menu
 						categories={translateCategoriesToUA(categories)}
-						isScrolled={isScrolled}
+						onClose={closeMenu}
 					/>
 				)}
 			</header>

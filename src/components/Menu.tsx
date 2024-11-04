@@ -5,10 +5,10 @@ import { TCategory } from '../services/fetchCategories'
 
 interface MenuProps {
 	categories: TCategory[] | null
-	isScrolled: boolean
+	onClose: () => void
 }
 
-export function Menu({ categories, isScrolled }: MenuProps) {
+export function Menu({ categories, onClose }: MenuProps) {
 	const [openCategories, setOpenCategories] = useState<string[]>([])
 
 	const toggleCategory = (categoryName: string) => {
@@ -17,9 +17,6 @@ export function Menu({ categories, isScrolled }: MenuProps) {
 				? prev.filter(name => name !== categoryName)
 				: [categoryName]
 		)
-	}
-	const closeMenu = () => {
-		setOpenCategories([])
 	}
 
 	return (
@@ -54,7 +51,7 @@ export function Menu({ categories, isScrolled }: MenuProps) {
 												<Link
 													to={`/category/${category.id}`}
 													className='capitalize xl:text-base'
-													onClick={closeMenu}
+													onClick={onClose}
 												>
 													Всі товари
 													<span className='ml-2 text-cInfo'>
@@ -75,7 +72,7 @@ export function Menu({ categories, isScrolled }: MenuProps) {
 													<Link
 														to={`/category/${category.id}/${item.id}`}
 														className='capitalize text-nowrap'
-														onClick={closeMenu}
+														onClick={onClose}
 													>
 														{item.title}
 														<span className='ml-2 text-cInfo'>
