@@ -16,11 +16,14 @@
 	body.dark {
 		@apply bg-cMain text-cBg-50;
 	}
+	body.lock {
+		@apply overflow-hidden;
+	}
 }
 
 @layer components {
 	.subcategories-list {
-		@apply font-medium text-xl flex flex-col gap-3 fade xl:absolute top-12 xl:bg-cBg xl:z-10 xl:text-sm xl:shadow-sm xl:w-full xl:min-w-52 xl:max-h-80 xl:overflow-y-auto [&::-webkit-scrollbar]:w-2
+		@apply relative font-medium text-xl flex flex-col gap-3 fade xl:absolute top-1 xl:top-12 xl:bg-cBg xl:z-10 xl:text-sm xl:shadow-sm xl:w-full xl:min-w-52 xl:max-h-80 xl:overflow-y-auto [&::-webkit-scrollbar]:w-2
 		[&::-webkit-scrollbar-track]:bg-cBg-50
 		[&::-webkit-scrollbar-thumb]:bg-cAccent [&::-webkit-scrollbar-thumb]:rounded-lg
 		dark:bg-cMain;
@@ -45,6 +48,13 @@
 	.triangle._down {
 		border-color: transparent transparent #ff3c3c transparent;
 		transform: rotate(180deg);
+	}
+}
+
+@layer utilities {
+	.scroll-small {
+		scrollbar-width: thin;
+		@apply [&::-webkit-scrollbar]:w-2;
 	}
 }
 

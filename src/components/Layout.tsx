@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from 'react' // Import ReactNode
 import useCategoriesStore from '../utils/store'
-import { Header } from './Header'
+import { Header } from './header/Header'
 
 export function Layout({ children }: { children: ReactNode }) {
 	const { fetchCategories } = useCategoriesStore()

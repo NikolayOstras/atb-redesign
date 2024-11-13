@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { QueryDocumentSnapshot } from 'firebase/firestore'
-import { DEFAULT_CATEGORY } from '../lib/const'
 import {
 	TProduct,
 	fetchProductsByCategory,
 	fetchProductsByCategoryAndSubcategory,
 } from '../services/fetchProducts'
-import { Card } from './Card'
+import { DEFAULT_CATEGORY } from '../utils/const'
 import { Loader } from './Loader'
+import { Card } from './card/Card'
 
 export function ProductsContainer() {
 	const { categoryId = DEFAULT_CATEGORY, subCategoryId } = useParams()
@@ -98,12 +98,12 @@ export function ProductsContainer() {
 
 	return (
 		<>
-			<div className='grid grid-cols-2 gap-4 xl:grid-cols-4 xl:gap-8 py-8'>
+			<div className='px-8 sm:px-0 grid grid-cols-1 sm:grid-cols-2 gap-4 xl:grid-cols-4 xl:gap-8 py-8'>
 				{products.map(product => (
 					<Card key={product.link} {...product} />
 				))}
 			</div>
-			{lastDoc && (
+			{lastDoc && !loading && (
 				<div className='flex justify-center py-4'>
 					<button
 						onClick={handleLoadMore}

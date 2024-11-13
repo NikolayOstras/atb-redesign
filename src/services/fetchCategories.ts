@@ -1,7 +1,7 @@
 import { DocumentReference, collection, getDocs } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 
-type TSubcategory = {
+export type TSubcategory = {
 	id: string
 	title: string
 	amount: number

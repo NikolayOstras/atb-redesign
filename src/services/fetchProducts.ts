@@ -14,12 +14,17 @@ import { db } from '../lib/firebase'
 
 const LIMIT = 16
 
+export type TPriceHistory = {
+	price: number
+	timestamp: Timestamp
+}
+
 export type TProduct = {
 	img: string
 	link: string
 	price: number
 	id: string
-	priceHistory: { price: number; timestamp: Timestamp }[]
+	priceHistory: TPriceHistory[]
 	title: string
 	category: DocumentReference
 	subcategory: DocumentReference
