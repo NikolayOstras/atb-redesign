@@ -1,3 +1,5 @@
+import { ProductsContainer } from '../components/products-container/ProductsContainer'
+
 export function Home() {
-	return <div>Home</div>
+	return <ProductsContainer />
 }

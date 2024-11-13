@@ -2,10 +2,20 @@ import { ReactNode, useState } from 'react'
 
 import { ArrowRight } from '../../icons/ArrowRight'
 import { Chart } from '../../icons/Chart'
-import { TProduct } from '../../services/fetchProducts'
+import { TriangleDown } from '../../icons/TriangleDown'
+import { TriangleUp } from '../../icons/TriangleUp'
+import { TProduct } from '../../utils/types'
 import { PriceHistory } from './price-history/PriceHistory'
 
-export function Card({ title, img, price, link, priceHistory }: TProduct) {
+export interface ICardProps {
+	title: string
+	img: string
+	price: number
+	link: string
+	priceHistory: TProduct['priceHistory']
+}
+
+export function Card({ title, img, price, link, priceHistory }: ICardProps) {
 	const currentPrice = price
 	const previousPrice =
 		priceHistory.length > 1
@@ -16,9 +26,9 @@ export function Card({ title, img, price, link, priceHistory }: TProduct) {
 	let priceTrendIcon: ReactNode = null
 	if (previousPrice !== null && currentPrice !== null) {
 		if (currentPrice > previousPrice) {
-			priceTrendIcon = <span className='triangle _up'></span>
+			priceTrendIcon = <TriangleUp />
 		} else if (currentPrice < previousPrice) {
-			priceTrendIcon = <span className='triangle _down'></span>
+			priceTrendIcon = <TriangleDown />
 		}
 	}
 

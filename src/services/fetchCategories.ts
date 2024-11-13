@@ -1,18 +1,12 @@
 import { DocumentReference, collection, getDocs } from 'firebase/firestore'
 import { db } from '../lib/firebase'
+import { TCategory, TSubcategory } from '../utils/types'
 
-export type TSubcategory = {
-	id: string
-	title: string
-	amount: number
-	category: DocumentReference
-}
-
-export type TCategory = {
-	id: string
-	title: string
-	subcategories: TSubcategory[]
-}
+/**
+ * Fetches categories and their subcategories from Firestore.
+ *
+ * @returns {Promise<TCategory[]>} A promise that resolves to an array of Category objects, each containing an array of Subcategory objects.
+ */
 
 export const fetchCategories = async (): Promise<TCategory[]> => {
 	try {
