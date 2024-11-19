@@ -1,6 +1,6 @@
+import { db } from '@/lib/firebase'
 import { DocumentReference, collection, getDocs } from 'firebase/firestore'
-import { db } from '../lib/firebase'
-import { TCategory, TSubcategory } from '../utils/types'
+import { TCategory, TSubcategory } from '../types'
 
 /**
  * Fetches categories and their subcategories from Firestore.

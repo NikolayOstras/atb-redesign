@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react' // Import ReactNode
-import useCategoriesStore from '../utils/store'
+import useCategoriesStore from '../store/categories-store/store'
 import { Header } from './header/Header'
 
 export function Layout({ children }: { children: ReactNode }) {

@@ -1,4 +1,4 @@
-import { TCategory } from '../services/fetchCategories'
+import { TCategory } from '../store/categories-store/api/fetchCategories'
 
 export const translateCategoriesToUA = (data: TCategory[]): TCategory[] => {
 	const translations: Record<string, string> = {

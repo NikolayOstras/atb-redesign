@@ -1,5 +1,5 @@
+import { TCategory } from '@/store/categories-store/types'
 import { Link } from 'react-router-dom'
-import { TCategory } from '../../../services/fetchCategories'
 import { SubcategoryItem } from './SubcategoryItem'
 
 interface ISubcategoryListProps {

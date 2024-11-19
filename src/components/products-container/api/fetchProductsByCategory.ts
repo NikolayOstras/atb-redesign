@@ -8,20 +8,21 @@ import {
 	startAfter,
 	where,
 } from 'firebase/firestore'
-import { ICardProps } from '../components/card/Card'
-import { db } from '../lib/firebase'
-import { LIMIT } from '../utils/const'
+import { db } from '../../../lib/firebase'
+import { LIMIT } from '../../../utils/const'
+import { TProduct } from '../types'
 /**
  * Fetches products from Firestore based on the provided category, with pagination.
  *
  * @param {string} categoryId - The ID of the category.
  * @param {QueryDocumentSnapshot} [lastDoc] - The last document from the previous fetch for pagination.
- * @returns {Promise<{ products: ICardProps[], lastDoc?: QueryDocumentSnapshot }>} A promise that resolves to an object containing an array of Product objects and optionally the last document for further pagination.
+ * @returns {Promise<{ products: TProduct[], lastDoc?: QueryDocumentSnapshot }>} A promise that resolves to an object containing an array of Product objects and optionally the last document for further pagination.
  */
 export async function fetchProductsByCategory(
 	categoryId: string,
-	lastDoc?: QueryDocumentSnapshot
-): Promise<{ products: ICardProps[]; lastDoc?: QueryDocumentSnapshot }> {
+	lastDoc?: QueryDocumentSnapshot,
+	totalCount?: number
+): Promise<{ products: TProduct[]; lastDoc?: QueryDocumentSnapshot }> {
 	try {
 		const productsCollection = collection(db, 'products')
 		const categoryRef = doc(collection(db, 'categories'), categoryId)

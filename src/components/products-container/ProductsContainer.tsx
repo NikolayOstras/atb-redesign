@@ -1,21 +1,23 @@
 import { Loader } from '../Loader'
-import { ErrorMessage } from './ErrorMessage'
 import { LoadMoreButton } from './LoadMoreButton'
-import { NoProductsMessage } from './NoProductsMessage'
 import { ProductsGrid } from './ProductsGrid'
-import { useProducts } from './useProducts'
+import { useProducts } from './hooks/use-products/useProducts'
 
 export function ProductsContainer() {
-	const { products, loading, error, lastDoc, loadMore } = useProducts()
+	const { products, loading, error, lastDoc, loadMore, totalCount } =
+		useProducts()
 
 	if (loading && products.length === 0) return <Loader />
-	if (error) return <ErrorMessage error={error} />
-	if (products.length === 0) return <NoProductsMessage />
+	if (error) return <div>{error}</div>
+	if (products.length === 0) return <div>No products available</div>
+
+	const showLoadMore =
+		lastDoc && totalCount !== undefined && products.length < totalCount
 
 	return (
 		<>
 			<ProductsGrid products={products} />
-			{lastDoc && <LoadMoreButton loading={loading} onClick={loadMore} />}
+			{showLoadMore && <LoadMoreButton loading={loading} onClick={loadMore} />}
 		</>
 	)
 }

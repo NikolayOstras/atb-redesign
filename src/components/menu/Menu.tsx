@@ -1,6 +1,7 @@
+import { Loader } from '@/components/Loader'
+import { TCategory } from '@/store/categories-store/types'
 import { useState } from 'react'
-import { TCategory } from '../../../services/fetchCategories'
-import { MenuItem } from './MenuItem'
+import { CategoryTitle } from './CategoryTitle'
 
 interface MenuProps {
 	categories: TCategory[] | null
@@ -23,10 +24,12 @@ export function Menu({ categories, onClose }: MenuProps) {
 			<nav className='overflow-y-auto h-[90vh] xl:h-auto xl:overflow-y-visible scrollbar-gutter-stable scroll-small py-4 xl:py-0'>
 				<ul className='text-xl xl:font-semibold flex flex-col items-center gap-1 xl:gap-4 xl:flex-row xl:flex-wrap xl:text-base'>
 					{categories === null ? (
-						<li>Loading...</li>
+						<li>
+							<Loader />
+						</li>
 					) : (
 						categories.map(category => (
-							<MenuItem
+							<CategoryTitle
 								key={category.id}
 								category={category}
 								isOpen={openCategories.includes(category.title)}

@@ -1,11 +1,6 @@
 import { create } from 'zustand'
-import { TCategory, fetchCategories } from '../services/fetchCategories'
-
-interface CategoriesState {
-	categories: TCategory[]
-	loading: boolean
-	fetchCategories: () => Promise<void>
-}
+import { fetchCategories } from './api/fetchCategories'
+import { CategoriesState, TCategory } from './types'
 
 const useCategoriesStore = create<CategoriesState>(set => ({
 	categories: [] as TCategory[],

@@ -1,20 +1,20 @@
-import { ChevronDown } from '../../../icons/ChevronDown'
-import { TCategory } from '../../../services/fetchCategories'
+import { ChevronDown } from '@/icons/ChevronDown'
+import { TCategory } from '@/store/categories-store/types'
 import { SubcategoryList } from './SubcategoryList'
 
-interface IMenuItemProps {
+interface ICategoryTitle {
 	category: TCategory
 	isOpen: boolean
 	onToggle: () => void
 	onClose: () => void
 }
 
-export function MenuItem({
+export function CategoryTitle({
 	category,
 	isOpen,
 	onToggle,
 	onClose,
-}: IMenuItemProps) {
+}: ICategoryTitle) {
 	return (
 		<li className='xl:relative w-full xl:w-auto'>
 			<button

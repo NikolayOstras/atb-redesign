@@ -1,16 +1,17 @@
 import clsx from 'clsx' // Import clsx
 import { useEffect, useState } from 'react'
 
+import { Search } from '@/icons/Search'
 import { Link } from 'react-router-dom'
 import { MenuIcon } from '../../icons/MenuIcon'
 import { Moon } from '../../icons/Moon'
 import { Sun } from '../../icons/Sun'
 import { X } from '../../icons/X'
-import useCategoriesStore from '../../utils/store'
+import useCategoriesStore from '../../store/categories-store/store'
 import { translateCategoriesToUA } from '../../utils/translateCategoriesToUA'
-import useMediaQuery, { useLocalStorage } from '../../utils/utils'
+import { useLocalStorage, useMediaQuery } from '../../utils/utils'
 import { Loader } from '../Loader'
-import { Menu } from './menu/Menu'
+import { Menu } from '../menu/Menu'
 
 export function Header() {
 	const isDesktop = useMediaQuery('(min-width: 1279px)')
@@ -74,6 +75,9 @@ export function Header() {
 						</Link>
 					</h1>
 					<div className='flex items-center gap-4'>
+						<Link to={'/search'}>
+							<Search />
+						</Link>
 						<button onClick={() => toggleDarkMode()}>
 							{isDarkMode ? <Sun /> : <Moon />}
 						</button>

@@ -1,9 +1,10 @@
+import { Search } from '@/pages/Search'
 import { createBrowserRouter } from 'react-router-dom'
 import { Layout } from '../components/Layout'
 import { Category } from '../pages/Category'
 import { Error } from '../pages/Error'
-import { Home } from '../pages/Home'
 import { Subcategory } from '../pages/Subcategory'
+import { Home } from '../pages/home/Home'
 
 export const router = createBrowserRouter([
 	{
@@ -29,6 +30,15 @@ export const router = createBrowserRouter([
 		element: (
 			<Layout>
 				<Subcategory />
+			</Layout>
+		),
+		errorElement: <Error />,
+	},
+	{
+		path: '/search',
+		element: (
+			<Layout>
+				<Search />
 			</Layout>
 		),
 		errorElement: <Error />,

@@ -1,3 +1,4 @@
+import { TPriceHistory } from '@/components/products-container/types'
 import {
 	CartesianGrid,
 	Legend,
@@ -9,7 +10,6 @@ import {
 	YAxis,
 } from 'recharts'
 import { X } from '../../../icons/X'
-import { TPriceHistory } from '../../../services/fetchProducts'
 import { usePriceChartData } from './usePriceChartData'
 
 interface PriceHistoryProps {

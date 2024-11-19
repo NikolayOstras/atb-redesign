@@ -1,39 +1,44 @@
-import { ReactNode, useState } from 'react'
-
-import { ArrowRight } from '../../icons/ArrowRight'
-import { Chart } from '../../icons/Chart'
-import { TriangleDown } from '../../icons/TriangleDown'
-import { TriangleUp } from '../../icons/TriangleUp'
-import { TProduct } from '../../utils/types'
+import { ArrowRight } from '@/icons/ArrowRight'
+import { Chart } from '@/icons/Chart'
+import { TriangleDown } from '@/icons/TriangleDown'
+import { TriangleUp } from '@/icons/TriangleUp'
+import { useFavoritesStore } from '@/store/favorites-store/store'
+import { useState } from 'react'
+import { TProduct } from '../products-container/types'
+import { ToggleFavoriteButton } from './ToggleFavoriteButton'
 import { PriceHistory } from './price-history/PriceHistory'
 
-export interface ICardProps {
-	title: string
-	img: string
-	price: number
-	link: string
-	priceHistory: TProduct['priceHistory']
-}
-
-export function Card({ title, img, price, link, priceHistory }: ICardProps) {
-	const currentPrice = price
+export function Card({ title, img, price, link, priceHistory, id }: TProduct) {
+	const { toggleFavorite, isFavorite } = useFavoritesStore()
+	const currentPrice = Number(price)
 	const previousPrice =
 		priceHistory.length > 1
-			? priceHistory[priceHistory.length - 2]?.price
-			: null
-	const [showChart, setShowChart] = useState(false)
+			? Number(priceHistory[priceHistory.length - 2]?.price)
+			: 0
 
-	let priceTrendIcon: ReactNode = null
-	if (previousPrice !== null && currentPrice !== null) {
-		if (currentPrice > previousPrice) {
-			priceTrendIcon = <TriangleUp />
-		} else if (currentPrice < previousPrice) {
-			priceTrendIcon = <TriangleDown />
-		}
+	const [showChart, setShowChart] = useState(false)
+	let position = ''
+
+	if (currentPrice > previousPrice) {
+		position = 'up'
 	}
+	if (currentPrice < previousPrice) {
+		position = 'down'
+	}
+	console.log(
+		title,
+		currentPrice,
+		previousPrice,
+		position,
+		currentPrice > previousPrice
+	)
 
 	return (
 		<article className='bg-cBg-50 flex flex-col gap-2 p-8 rounded-xl shadow dark:bg-cMain-50 relative'>
+			<ToggleFavoriteButton
+				onClick={() => toggleFavorite(id)}
+				isInFavorites={isFavorite(id)}
+			/>
 			<img
 				src={img}
 				alt={title}
@@ -44,14 +49,13 @@ export function Card({ title, img, price, link, priceHistory }: ICardProps) {
 			<p className='text-center font-semibold'>{title}</p>
 			<div className='flex justify-between mt-auto'>
 				<div className='text-sm xl:text-lg font-semibold flex justify-between flex-wrap items-center gap-1'>
-					{price} {priceTrendIcon}
+					{price} {position == 'down' && <TriangleDown />}
+					{position == 'up' && <TriangleUp />}
 				</div>
 				{priceHistory.length > 1 && (
 					<button
 						className='text-cAccent hover:text-cAccent-50 transition-colors'
-						onClick={() => {
-							setShowChart(!showChart)
-						}}
+						onClick={() => setShowChart(!showChart)}
 						aria-label='Toggle price chart'
 					>
 						<Chart />
@@ -67,7 +71,6 @@ export function Card({ title, img, price, link, priceHistory }: ICardProps) {
 					<ArrowRight />
 				</a>
 			</div>
-
 			{showChart && (
 				<PriceHistory
 					priceHistory={priceHistory}
