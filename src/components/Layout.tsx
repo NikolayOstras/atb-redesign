@@ -1,19 +1,19 @@
-import { ReactNode, useEffect } from 'react' // Import ReactNode
-import useCategoriesStore from '../store/categories-store/store'
-import { Header } from './header/Header'
+import { type ReactNode, useEffect } from 'react'; // Import ReactNode
+import useCategoriesStore from '../store/categories-store/store';
+import { Header } from './header/Header';
 
 export function Layout({ children }: { children: ReactNode }) {
-	const { fetchCategories } = useCategoriesStore()
+	const { fetchCategories } = useCategoriesStore();
 
 	useEffect(() => {
 		// Fetch categories when the component mounts
-		fetchCategories()
-	}, [fetchCategories])
+		fetchCategories();
+	}, [fetchCategories]);
 
 	return (
-		<div className='container'>
+		<div className="container">
 			<Header />
 			{children} {/* Render the children here */}
 		</div>
-	)
+	);
 }

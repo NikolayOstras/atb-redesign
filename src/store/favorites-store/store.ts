@@ -1,10 +1,10 @@
-import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface FavoritesState {
-	favorites: string[]
-	toggleFavorite: (id: string) => void
-	isFavorite: (id: string) => boolean
+	favorites: string[];
+	toggleFavorite: (id: string) => void;
+	isFavorite: (id: string) => boolean;
 }
 
 export const useFavoritesStore = create<FavoritesState>()(
@@ -12,9 +12,9 @@ export const useFavoritesStore = create<FavoritesState>()(
 		(set, get) => ({
 			favorites: [],
 			toggleFavorite: (id: string) =>
-				set(state => ({
+				set((state) => ({
 					favorites: state.favorites.includes(id)
-						? state.favorites.filter(favId => favId !== id)
+						? state.favorites.filter((favId) => favId !== id)
 						: [...state.favorites, id],
 				})),
 			isFavorite: (id: string) => get().favorites.includes(id),
@@ -22,6 +22,6 @@ export const useFavoritesStore = create<FavoritesState>()(
 		{
 			name: 'favorites-storage',
 			storage: createJSONStorage(() => localStorage),
-		}
-	)
-)
+		},
+	),
+);

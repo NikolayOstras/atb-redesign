@@ -1,5 +1,5 @@
-import { ProductsContainer } from '../components/products-container/ProductsContainer'
+import { ProductsContainer } from '../components/products-container/ProductsContainer';
 
 export function Subcategory() {
-	return <ProductsContainer />
+	return <ProductsContainer />;
 }

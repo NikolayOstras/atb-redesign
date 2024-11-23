@@ -1,19 +1,18 @@
-import { QueryDocumentSnapshot } from 'firebase/firestore'
-import { fetchProductsByCategory } from '../../api/fetchProductsByCategory'
-import { fetchProductsByCategoryAndSubcategory } from '../../api/fetchProductsByCategoryAndSubcategory'
+import type { QueryDocumentSnapshot } from 'firebase/firestore';
+import { fetchProductsByCategory } from '../../api/fetchProductsByCategory';
+import { fetchProductsByCategoryAndSubcategory } from '../../api/fetchProductsByCategoryAndSubcategory';
 
 export async function loadProducts(
 	categoryId: string,
 	subCategoryId?: string,
-	lastDoc?: QueryDocumentSnapshot
+	lastDoc?: QueryDocumentSnapshot,
 ) {
 	if (!subCategoryId) {
-		return await fetchProductsByCategory(categoryId, lastDoc)
-	} else {
-		return await fetchProductsByCategoryAndSubcategory(
-			categoryId,
-			subCategoryId,
-			lastDoc
-		)
+		return await fetchProductsByCategory(categoryId, lastDoc);
 	}
+	return await fetchProductsByCategoryAndSubcategory(
+		categoryId,
+		subCategoryId,
+		lastDoc,
+	);
 }

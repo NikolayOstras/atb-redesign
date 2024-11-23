@@ -1,12 +1,12 @@
-import { ChevronDown } from '@/icons/ChevronDown'
-import { TCategory } from '@/store/categories-store/types'
-import { SubcategoryList } from './SubcategoryList'
+import { ChevronDown } from '@/icons/ChevronDown';
+import type { TCategory } from '@/store/categories-store/types';
+import { SubcategoryList } from './SubcategoryList';
 
 interface ICategoryTitle {
-	category: TCategory
-	isOpen: boolean
-	onToggle: () => void
-	onClose: () => void
+	category: TCategory;
+	isOpen: boolean;
+	onToggle: () => void;
+	onClose: () => void;
 }
 
 export function CategoryTitle({
@@ -16,9 +16,10 @@ export function CategoryTitle({
 	onClose,
 }: ICategoryTitle) {
 	return (
-		<li className='xl:relative w-full xl:w-auto'>
+		<li className="xl:relative w-full xl:w-auto">
 			<button
-				className='w-full px-2 py-3 flex gap-2 items-center justify-between hover:text-cAccent transition-colors'
+				type="button"
+				className="w-full px-2 py-3 flex gap-2 items-center justify-between hover:text-cAccent transition-colors"
 				onClick={onToggle}
 			>
 				{category.title}
@@ -32,5 +33,5 @@ export function CategoryTitle({
 				<SubcategoryList category={category} onClose={onClose} />
 			)}
 		</li>
-	)
+	);
 }

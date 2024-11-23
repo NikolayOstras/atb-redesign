@@ -1,10 +1,10 @@
-import { Search } from '@/pages/Search'
-import { createBrowserRouter } from 'react-router-dom'
-import { Layout } from '../components/Layout'
-import { Category } from '../pages/Category'
-import { Error } from '../pages/Error'
-import { Subcategory } from '../pages/Subcategory'
-import { Home } from '../pages/home/Home'
+import { Search } from '@/pages/Search';
+import { createBrowserRouter } from 'react-router-dom';
+import { Layout } from '../components/Layout';
+import { Category } from '../pages/Category';
+import { ErrorPage } from '../pages/Error';
+import { Subcategory } from '../pages/Subcategory';
+import { Home } from '../pages/home/Home';
 
 export const router = createBrowserRouter([
 	{
@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
 				<Home />
 			</Layout>
 		),
-		errorElement: <Error />,
+		errorElement: <ErrorPage />,
 	},
 	{
 		path: '/category/:categoryId',
@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
 				<Category />
 			</Layout>
 		),
-		errorElement: <Error />,
+		errorElement: <ErrorPage />,
 	},
 	{
 		path: '/category/:categoryId/:subCategoryId',
@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
 				<Subcategory />
 			</Layout>
 		),
-		errorElement: <Error />,
+		errorElement: <ErrorPage />,
 	},
 	{
 		path: '/search',
@@ -41,6 +41,6 @@ export const router = createBrowserRouter([
 				<Search />
 			</Layout>
 		),
-		errorElement: <Error />,
+		errorElement: <ErrorPage />,
 	},
-])
+]);
