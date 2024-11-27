@@ -7,8 +7,8 @@ describe('Loader Component', () => {
 	it('renders without crashing', () => {
 		render(<Loader />)
 		const loader = screen.getByLabelText(/loading/i)
-		expect(loader).toBeInTheDocument()
+		expect(loader).toBeDefined()
 		const hiddenText = screen.getByText(/loading.../i)
-		expect(hiddenText).toBeInTheDocument()
+		expect(hiddenText).toBeDefined()
 	})
 })

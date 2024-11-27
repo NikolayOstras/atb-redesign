@@ -12,6 +12,7 @@
 		"test:watch": "vitest --watch"
 	},
 	"dependencies": {
+		"@testing-library/react-hooks": "^8.0.1",
 		"clsx": "^2.1.1",
 		"firebase": "^10.14.1",
 		"react": "^18.3.1",
