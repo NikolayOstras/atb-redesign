@@ -1,5 +1,4 @@
 import {
-	type QueryDocumentSnapshot,
 	collection,
 	doc,
 	getDocs,
@@ -7,10 +6,11 @@ import {
 	query,
 	startAfter,
 	where,
-} from 'firebase/firestore';
-import { db } from '../../../lib/firebase';
-import { LIMIT } from '../../../utils/const';
-import type { TProduct } from '../types';
+	type QueryDocumentSnapshot,
+} from 'firebase/firestore'
+import { db } from '../../../lib/firebase'
+import { LIMIT } from '../../../utils/const'
+import type { TProduct } from '../types'
 /**
  * Fetches products from Firestore based on the provided category, with pagination.
  *
@@ -20,39 +20,38 @@ import type { TProduct } from '../types';
  */
 export async function fetchProductsByCategory(
 	categoryId: string,
-	lastDoc?: QueryDocumentSnapshot,
-	totalCount?: number,
+	lastDoc?: QueryDocumentSnapshot
 ): Promise<{ products: TProduct[]; lastDoc?: QueryDocumentSnapshot }> {
 	try {
-		const productsCollection = collection(db, 'products');
-		const categoryRef = doc(collection(db, 'categories'), categoryId);
+		const productsCollection = collection(db, 'products')
+		const categoryRef = doc(collection(db, 'categories'), categoryId)
 
 		let productsQuery = query(
 			productsCollection,
 			where('category', '==', categoryRef),
-			limit(LIMIT),
-		);
+			limit(LIMIT)
+		)
 
 		if (lastDoc) {
-			productsQuery = query(productsQuery, startAfter(lastDoc));
+			productsQuery = query(productsQuery, startAfter(lastDoc))
 		}
 
-		const querySnapshot = await getDocs(productsQuery);
-		const products = querySnapshot.docs.map((doc) => ({
+		const querySnapshot = await getDocs(productsQuery)
+		const products = querySnapshot.docs.map(doc => ({
 			id: doc.id,
 			img: doc.data().img,
 			link: doc.data().link,
 			price: doc.data().price,
 			priceHistory: doc.data().priceHistory || [],
 			title: doc.data().title,
-		}));
+		}))
 
 		return {
 			products,
 			lastDoc: querySnapshot.docs[querySnapshot.docs.length - 1],
-		};
+		}
 	} catch (error) {
-		console.error('Error getting products by category:', error);
-		return { products: [] };
+		console.error('Error getting products by category:', error)
+		return { products: [] }
 	}
 }

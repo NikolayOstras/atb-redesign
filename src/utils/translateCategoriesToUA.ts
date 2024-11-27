@@ -1,4 +1,4 @@
-import type { TCategory } from '../store/categories-store/api/fetchCategories';
+import type { TCategory, TSubcategory } from '@/store/categories-store/types'
 
 export const translateCategoriesToUA = (data: TCategory[]): TCategory[] => {
 	const translations: Record<string, string> = {
@@ -55,14 +55,14 @@ export const translateCategoriesToUA = (data: TCategory[]): TCategory[] => {
 		kovbasa: 'ковбаса',
 		meat: "м'ясо",
 		sausages: 'сосиски',
-	};
+	}
 
-	return data.map((category) => ({
+	return data.map(category => ({
 		...category,
 		title: translations[category.title] || category.title,
-		subcategories: category.subcategories.map((sub) => ({
+		subcategories: category.subcategories.map((sub: TSubcategory) => ({
 			...sub,
 			title: translations[sub.title] || sub.title, // Translate subcategory title
 		})),
-	}));
-};
+	}))
+}

@@ -1,10 +1,6 @@
-import { db } from '@/lib/firebase';
-import {
-	type DocumentReference,
-	collection,
-	getDocs,
-} from 'firebase/firestore';
-import type { TCategory, TSubcategory } from '../types';
+import { db } from '@/lib/firebase'
+import { collection, getDocs, type DocumentReference } from 'firebase/firestore'
+import type { TCategory, TSubcategory } from '../types'
 
 /**
  * Fetches categories and their subcategories from Firestore.
@@ -14,36 +10,36 @@ import type { TCategory, TSubcategory } from '../types';
 
 export const fetchCategories = async (): Promise<TCategory[]> => {
 	try {
-		const categoriesCollection = collection(db, 'categories');
-		const categoriesSnapshot = await getDocs(categoriesCollection);
-		const categoriesData = categoriesSnapshot.docs.map((doc) => ({
+		const categoriesCollection = collection(db, 'categories')
+		const categoriesSnapshot = await getDocs(categoriesCollection)
+		const categoriesData = categoriesSnapshot.docs.map(doc => ({
 			id: doc.id,
 			title: doc.data().title || '',
-		}));
+		}))
 
-		const subcategoriesCollection = collection(db, 'subcategories');
-		const subcategoriesSnapshot = await getDocs(subcategoriesCollection);
+		const subcategoriesCollection = collection(db, 'subcategories')
+		const subcategoriesSnapshot = await getDocs(subcategoriesCollection)
 
 		const subcategoriesData: TSubcategory[] = subcategoriesSnapshot.docs.map(
-			(doc) => ({
+			doc => ({
 				id: doc.id,
 				title: doc.data().title || '',
 				amount: doc.data().amount || 0,
 				category: doc.data().category as DocumentReference,
-			}),
-		);
+			})
+		)
 
-		const result: TCategory[] = categoriesData.map((category) => ({
+		const result: TCategory[] = categoriesData.map(category => ({
 			id: category.id,
 			title: category.title,
 			subcategories: subcategoriesData.filter(
-				(subcategory) => subcategory.category.id === category.id,
+				subcategory => subcategory.category.id === category.id
 			),
-		}));
+		}))
 
-		return result;
+		return result
 	} catch (error) {
-		console.error('Error fetching categories:', error);
-		throw error;
+		console.error('Error fetching categories:', error)
+		throw error
 	}
-};
+}
