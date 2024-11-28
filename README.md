@@ -27,18 +27,24 @@ This project is intended for **educational purposes only**. It is not affiliated
 ## 🛠 How to Run
 
 1. Clone the repository:
+```
    git clone https://github.com/NikolayOstras/atb-redesign.git
+```
    Install dependencies:
+```
    npm install
+```
    Start the development server:
+```
    npm run dev
+```
    Open http://localhost:5173 to view the project in your browser.
    📨 Contact
    For questions or issues, feel free to contact me at nikki.ice.promo@gmail.com
 
-   ```
+   
 
-   ```
+   
 
 ### `Card` Component
 
