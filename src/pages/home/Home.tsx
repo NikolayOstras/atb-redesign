@@ -46,7 +46,12 @@ export function Home() {
 	}
 
 	if (favoriteProducts.length === 0) {
-		return <div>Додайте продукти у вибране щоб побачити тут</div>
+		return (
+			<>
+				<div>Додайте продукти у вибране щоб побачити тут</div>
+				<LegalNotice />
+			</>
+		)
 	}
 
 	return (
