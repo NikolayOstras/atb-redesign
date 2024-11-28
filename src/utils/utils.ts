@@ -1,36 +1,38 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 export function useMediaQuery(query: string): boolean {
-	const [matches, setMatches] = useState(() => window.matchMedia(query).matches)
+	const [matches, setMatches] = useState(
+		() => window.matchMedia(query).matches,
+	);
 
 	useEffect(() => {
-		const mediaQueryList = window.matchMedia(query)
-		const listener = (event: MediaQueryListEvent) => setMatches(event.matches)
+		const mediaQueryList = window.matchMedia(query);
+		const listener = (event: MediaQueryListEvent) => setMatches(event.matches);
 
-		mediaQueryList.addEventListener('change', listener)
+		mediaQueryList.addEventListener('change', listener);
 
-		setMatches(mediaQueryList.matches)
+		setMatches(mediaQueryList.matches);
 
-		return () => mediaQueryList.removeEventListener('change', listener)
-	}, [query])
+		return () => mediaQueryList.removeEventListener('change', listener);
+	}, [query]);
 
-	return matches
+	return matches;
 }
 
 export function useDebounce<T>(value: T, delay: number): T {
-	const [debouncedValue, setDebouncedValue] = useState<T>(value)
+	const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
 	useEffect(() => {
 		const handler = setTimeout(() => {
-			setDebouncedValue(value)
-		}, delay)
+			setDebouncedValue(value);
+		}, delay);
 
 		return () => {
-			clearTimeout(handler)
-		}
-	}, [value, delay])
+			clearTimeout(handler);
+		};
+	}, [value, delay]);
 
-	return debouncedValue
+	return debouncedValue;
 }
 
-export default useDebounce
+export default useDebounce;

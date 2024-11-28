@@ -1,3 +1,4 @@
+import { LegalNotice } from '@/LegalNotice'
 import { Loader } from '@/components/Loader'
 import { ProductsGrid } from '@/components/products-container/ProductsGrid'
 import type { TProduct } from '@/components/products-container/types'
@@ -54,6 +55,7 @@ export function Home() {
 				Ваші вибрані продукти:
 			</h1>
 			<ProductsGrid products={favoriteProducts} />
+			<LegalNotice />
 		</>
 	)
 }
