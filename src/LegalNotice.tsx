@@ -1,7 +1,7 @@
 export function LegalNotice() {
 	return (
-		<div className='bg-cBg-50 dark:bg-cMain-50 dark:text-cBg-50 text-cMain-50 p-8 rounded-lg shadow-md'>
-			<h1 className='text-2xl font-bold mb-4'>Юридичне застереження</h1>
+		<div className='bg-cBg-50 dark:bg-cMain-50 dark:text-cBg-50 text-cMain-50 p-8 rounded-lg shadow-md text-xs my-8'>
+			<h1 className='text-xl font-bold mb-4'>Юридичне застереження</h1>
 			<ol className='list-decimal list-inside space-y-4'>
 				<li>
 					<strong>Освітня мета</strong>

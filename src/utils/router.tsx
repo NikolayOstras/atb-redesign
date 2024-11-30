@@ -1,10 +1,10 @@
-import { Search } from '@/pages/Search';
-import { createBrowserRouter } from 'react-router-dom';
-import { Layout } from '../components/Layout';
-import { Category } from '../pages/Category';
-import { ErrorPage } from '../pages/Error';
-import { Subcategory } from '../pages/Subcategory';
-import { Home } from '../pages/home/Home';
+import { Search } from '@/pages/Search'
+import { createBrowserRouter } from 'react-router-dom'
+import { Layout } from '../components/Layout'
+import { Category } from '../pages/Category'
+import { ErrorPage } from '../pages/Error'
+import { Home } from '../pages/Home'
+import { Subcategory } from '../pages/Subcategory'
 
 export const router = createBrowserRouter([
 	{
@@ -43,4 +43,4 @@ export const router = createBrowserRouter([
 		),
 		errorElement: <ErrorPage />,
 	},
-]);
+])
