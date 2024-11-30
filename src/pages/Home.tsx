@@ -62,7 +62,7 @@ export function Home() {
 		)
 	}
 
-	if (favorites.length === 0) {
+	if (!favorites) {
 		return (
 			<>
 				<div className='my-4 font-semibold'>
