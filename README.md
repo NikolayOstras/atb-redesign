@@ -1,4 +1,5 @@
-# ATB Website Redesign (Educational Project)
+### ATB Website Redesign (Educational Project)
+![atb-redesign vercel app_category_KQkeYCAsMOXU4RpszfDH(Nest Hub)-min](https://github.com/user-attachments/assets/531f1535-0c5c-42b8-80dc-60bc5e729236)
 
 This is a non-commercial educational project that showcases a redesign of the ATB website using modern web development technologies. The project demonstrates skills in React, TypeScript, Tailwind CSS, and Zustand for state management.
 
