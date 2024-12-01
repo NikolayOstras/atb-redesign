@@ -10,7 +10,7 @@
 	body {
 		min-height: 100%;
 		@apply bg-cBg transition-colors text-cMain;
-		font-family: 'Manrope', sans-serif;
+		font-family: "Manrope", sans-serif;
 		scrollbar-gutter: stable;
 	}
 	body.dark {

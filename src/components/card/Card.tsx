@@ -13,8 +13,8 @@ export function Card(product: TProduct) {
 	const { toggleFavorite, isFavorite } = useFavoritesStore()
 	const currentPrice = Number(price)
 	const previousPrice =
-		priceHistory.length > 1
-			? Number(priceHistory[priceHistory.length - 2]?.price)
+		priceHistory?.length > 1
+			? Number(priceHistory[priceHistory?.length - 2]?.price)
 			: 0
 	const priceDifferencePercentage =
 		previousPrice !== 0
@@ -43,23 +43,23 @@ export function Card(product: TProduct) {
 					{price}
 					{priceDifferencePercentage !== '0.00' && position === 'down' ? (
 						<div className='flex items-center ml-2 font-base'>
-							<span className='text-xs text-cActive'>
-								{priceDifferencePercentage}
+							<span className='text-xs text-cActive mr-2'>
+								{priceDifferencePercentage}%
 							</span>
 							<TriangleDown />
 						</div>
 					) : priceDifferencePercentage !== '0.00' && position === 'up' ? (
 						<div className='flex items-center ml-2 font-base'>
 							{priceDifferencePercentage && (
-								<span className='text-xs text-cAccent'>
-									{priceDifferencePercentage}
+								<span className='text-xs text-cAccent mr-2'>
+									{priceDifferencePercentage}%
 								</span>
 							)}
 							<TriangleUp />
 						</div>
 					) : null}
 				</div>
-				{priceHistory.length > 1 && (
+				{priceHistory?.length > 1 && (
 					<button
 						type='button'
 						className='text-cAccent hover:text-cAccent-50 transition-colors'

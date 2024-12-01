@@ -1,6 +1,6 @@
-import { create } from 'zustand'
-import { loadProducts } from './api/loadProducts'
-import type { ProductsStore } from './types'
+import { create } from 'zustand';
+import { loadProducts } from './api/loadProducts';
+import type { ProductsStore } from './types';
 
 export const useProductsStore = create<ProductsStore>()((set, get) => ({
 	products: [],
@@ -10,56 +10,56 @@ export const useProductsStore = create<ProductsStore>()((set, get) => ({
 	totalCount: undefined,
 
 	fetchInitialProducts: async (categoryId, subCategoryId) => {
-		set({ loading: true, error: null })
+		set({ loading: true, error: null });
 
 		try {
 			const { products, lastDoc, count } = await loadProducts(
 				categoryId,
-				subCategoryId
-			)
+				subCategoryId,
+			);
 			set({
 				products,
 				lastDoc: lastDoc || null,
 				totalCount: count, // Set total count
 				loading: false,
-			})
+			});
 		} catch (error) {
-			console.error(error)
-			set({ error: 'Failed to load products', loading: false })
+			console.error(error);
+			set({ error: 'Failed to load products', loading: false });
 		}
 	},
 
 	loadMore: async (categoryId, subCategoryId) => {
-		const { lastDoc, products } = get()
-		if (!lastDoc) return
+		const { lastDoc, products } = get();
+		if (!lastDoc) return;
 
-		set({ loading: true, error: null })
+		set({ loading: true, error: null });
 
 		try {
 			const { products: moreProducts, lastDoc: newLastDoc } =
-				await loadProducts(categoryId, subCategoryId, lastDoc)
+				await loadProducts(categoryId, subCategoryId, lastDoc);
 			set({
 				products: [...products, ...moreProducts],
 				lastDoc: newLastDoc || null,
 				loading: false,
-			})
+			});
 		} catch (error) {
-			console.error(error)
-			set({ error: 'Failed to load more products', loading: false })
+			console.error(error);
+			set({ error: 'Failed to load more products', loading: false });
 		}
 	},
 
 	getProductCount: async (categoryId: string, subCategoryId?: string) => {
-		set({ loading: true, error: null })
+		set({ loading: true, error: null });
 
 		try {
-			const { count } = await loadProducts(categoryId, subCategoryId)
-			set({ totalCount: count, loading: false })
-			return count
+			const { count } = await loadProducts(categoryId, subCategoryId);
+			set({ totalCount: count, loading: false });
+			return count;
 		} catch (error) {
-			console.error(error)
-			set({ error: 'Failed to fetch product count', loading: false })
-			return 0
+			console.error(error);
+			set({ error: 'Failed to fetch product count', loading: false });
+			return 0;
 		}
 	},
 
@@ -70,6 +70,6 @@ export const useProductsStore = create<ProductsStore>()((set, get) => ({
 			error: null,
 			lastDoc: null,
 			totalCount: undefined,
-		})
+		});
 	},
-}))
+}));

@@ -13,7 +13,7 @@ export function Home() {
 		const minSize = 100 // Minimum size in pixels
 		const maxSize = 150 // Maximum size in pixels
 		const minFontSize = 14 // Minimum font size in pixels
-		const maxFontSize = 22 // Maximum font size in pixels
+		const maxFontSize = 20 // Maximum font size in pixels
 
 		const calculateSize = (amount: number) => {
 			const size = (amount / maxAmount) * (maxSize - minSize) + minSize
@@ -49,7 +49,7 @@ export function Home() {
 								<span
 									className='font-semibold mt-1'
 									style={{
-										fontSize: `${parseFloat(fontSize) * 0.7}px`,
+										fontSize: `${Number.parseFloat(fontSize) * 0.7}px`,
 									}}
 								>
 									({category.amount})

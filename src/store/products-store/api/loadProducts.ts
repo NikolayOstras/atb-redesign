@@ -1,7 +1,6 @@
 import { db } from '@/lib/firebase'
 import { LIMIT } from '@/utils/const'
 import {
-	QueryDocumentSnapshot,
 	collection,
 	doc,
 	getDocs,
@@ -9,6 +8,7 @@ import {
 	query,
 	startAfter,
 	where,
+	type QueryDocumentSnapshot,
 } from 'firebase/firestore'
 
 export const loadProducts = async (
@@ -62,7 +62,7 @@ export const loadProducts = async (
 
 		// Get the last document for pagination
 		const newLastDoc =
-			productsSnapshot.docs[productsSnapshot.docs.length - 1] || null
+			productsSnapshot.docs[productsSnapshot.docs?.length - 1] || null
 
 		return { products, lastDoc: newLastDoc, count }
 	} catch (error) {

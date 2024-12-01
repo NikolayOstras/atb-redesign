@@ -5,19 +5,19 @@ import { useProducts } from './hooks/useProducts'
 
 export function ProductsContainer() {
 	const { products, loading, error, loadMore, totalCount } = useProducts()
-	const hasMoreProducts = totalCount ? products.length < totalCount : true
+	const hasMoreProducts = totalCount ? products?.length < totalCount : true
 	const progressPercentage = totalCount
-		? (products.length / totalCount) * 100
+		? (products?.length / totalCount) * 100
 		: 0
 
-	if (loading && products.length === 0)
+	if (loading && products?.length === 0)
 		return (
 			<div className='flex justify-center'>
 				<Loader />
 			</div>
 		)
 	if (error) return <div>{error}</div>
-	if (products.length === 0) return <div>No products available</div>
+	if (products?.length === 0) return <div>No products available</div>
 
 	return (
 		<>
