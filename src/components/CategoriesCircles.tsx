@@ -29,7 +29,7 @@ export const CategoriesCircles = () => {
 				return (
 					<div
 						key={category.id}
-						className='flex items-center justify-center rounded-full bg-cInfo hover:bg-cInfo-50 transition-colors p-6'
+						className='flex items-center justify-center rounded-full bg-cBg-50 dark:bg-cMain-50 hover:bg-cInfo transition-colors font-semibold'
 						style={{
 							width: size,
 							height: size,
