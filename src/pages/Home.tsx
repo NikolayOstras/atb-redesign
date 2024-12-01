@@ -11,9 +11,9 @@ export function Home() {
 	const CategoriesCircles = () => {
 		const maxAmount = Math.max(...categories.map(cat => cat.amount))
 		const minSize = 100 // Minimum size in pixels
-		const maxSize = 200 // Maximum size in pixels
+		const maxSize = 150 // Maximum size in pixels
 		const minFontSize = 14 // Minimum font size in pixels
-		const maxFontSize = 24 // Maximum font size in pixels
+		const maxFontSize = 22 // Maximum font size in pixels
 
 		const calculateSize = (amount: number) => {
 			const size = (amount / maxAmount) * (maxSize - minSize) + minSize
